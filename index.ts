@@ -8,6 +8,7 @@ import 'express-async-errors';
 import loginRouter from './controllers/auth';
 import documentsRouter from './controllers/document';
 import usersRouter from './controllers/user';
+import statsRouter from './controllers/statistic';
 import errorHandler from './middlewares/errorHandler';
 import './passport';
 import swaggerDocument from './swagger.json';
@@ -24,6 +25,7 @@ app.use(passport.session());
 app.use('/auth', loginRouter);
 app.use('/documents', documentsRouter);
 app.use('/users', usersRouter);
+app.use('/stats', statsRouter);
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(errorHandler);
 

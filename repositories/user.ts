@@ -85,4 +85,36 @@ const updateUser = async (id: string, data: Prisma.UserUpdateInput) => {
   });
 }
 
-export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser };
+const getUsersCount = async () => {
+  return prisma.user.count();
+}
+
+const getLatestUsers = async () => {
+  return prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      picture: true,
+      createdAt: true,
+      updatedAt: true,
+      documents: {
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+        orderBy: {
+          updatedAt: 'desc'
+        }
+      }
+    },
+    orderBy: {
+      updatedAt: 'desc'
+    },
+    take: 5
+  });
+}
+
+export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, getUsersCount, getLatestUsers };

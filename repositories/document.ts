@@ -55,4 +55,24 @@ const deleteDocument = async (id: string) => {
   });
 }
 
-export { findAllDocuments, findDocumentById, findDocumentUserId, createDocument, updateDocument, deleteDocument };
+const getDocumentsCount = async () => {
+  return prisma.document.count();
+}
+
+const getLatestDocuments = async () => {
+  return prisma.document.findMany({
+    select: {
+      id: true,
+      name: true,
+      createdAt: true,
+      updatedAt: true,
+      userId: true,
+    },
+    orderBy: {
+      updatedAt: 'desc'
+    },
+    take: 5
+  });
+}
+
+export { findAllDocuments, findDocumentById, findDocumentUserId, createDocument, updateDocument, deleteDocument, getDocumentsCount, getLatestDocuments };
