@@ -85,6 +85,12 @@ const updateUser = async (id: string, data: Prisma.UserUpdateInput) => {
   });
 }
 
+const deleteUser = async (id: string) => {
+  return prisma.user.delete({
+    where: { id }
+  });
+}
+
 const getUsersCount = async () => {
   return prisma.user.count();
 }
@@ -117,4 +123,4 @@ const getLatestUsers = async () => {
   });
 }
 
-export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, getUsersCount, getLatestUsers };
+export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, deleteUser, getUsersCount, getLatestUsers };
