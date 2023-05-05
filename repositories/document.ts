@@ -38,6 +38,26 @@ const findDocumentUserId = async (id: string) => {
   });
   return document?.userId;
 }
+
+const findDocumentMetadata = async (id: string) => {
+  return prisma.document.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      createdAt: true,
+      updatedAt: true,
+      user: {
+        select: {
+          name: true,
+          picture: true,
+          email: true,
+        }
+      }
+    }
+  });
+}
+
 const createDocument = async (data: Prisma.DocumentCreateInput) => {
   return prisma.document.create({ data });
 }
@@ -75,4 +95,4 @@ const getLatestDocuments = async () => {
   });
 }
 
-export { findAllDocuments, findDocumentById, findDocumentUserId, createDocument, updateDocument, deleteDocument, getDocumentsCount, getLatestDocuments };
+export { findAllDocuments, findDocumentById, findDocumentUserId, findDocumentMetadata, createDocument, updateDocument, deleteDocument, getDocumentsCount, getLatestDocuments };
