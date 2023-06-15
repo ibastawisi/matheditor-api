@@ -9,6 +9,7 @@ const findAllDocuments = async () => {
       createdAt: true,
       updatedAt: true,
       userId: true,
+      isPublic: true,
     },
     orderBy: {
       updatedAt: 'desc'

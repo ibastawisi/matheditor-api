@@ -15,7 +15,7 @@ model Document {
   updatedAt DateTime @default(now()) @map("updated_at")
   userId    String   @map("user_id") @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  isPublic  Boolean  @default(false) @map("is_public")
   @@map("documents")
 }
 

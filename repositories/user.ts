@@ -10,6 +10,7 @@ const findAllUsers = async () => {
           name: true,
           createdAt: true,
           updatedAt: true,
+          isPublic: true,
         },
         orderBy: {
           updatedAt: 'desc'
@@ -40,6 +41,38 @@ const findUserById = async (id: string) => {
           name: true,
           createdAt: true,
           updatedAt: true,
+          isPublic: true,
+        },
+        orderBy: {
+          updatedAt: 'desc'
+        }
+      }
+    }
+  });
+}
+
+const findPublicUserById = async (id: string) => {
+  return prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      picture: true,
+      createdAt: true,
+      updatedAt: true,
+      admin: true,
+      disabled: true,
+      documents: {
+        where: {
+          isPublic: true
+        },
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+          updatedAt: true,
+          isPublic: true,
         },
         orderBy: {
           updatedAt: 'desc'
@@ -65,6 +98,7 @@ const findUserByGoogleId = async (googleId: string) => {
           name: true,
           createdAt: true,
           updatedAt: true,
+          isPublic: true,
         },
         orderBy: {
           updatedAt: 'desc'
@@ -110,6 +144,7 @@ const getLatestUsers = async () => {
           name: true,
           createdAt: true,
           updatedAt: true,
+          isPublic: true,
         },
         orderBy: {
           updatedAt: 'desc'
@@ -123,4 +158,4 @@ const getLatestUsers = async () => {
   });
 }
 
-export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, deleteUser, getUsersCount, getLatestUsers };
+export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, deleteUser, getUsersCount, getLatestUsers, findPublicUserById };
