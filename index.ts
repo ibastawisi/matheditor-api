@@ -9,7 +9,7 @@ import loginRouter from './controllers/auth';
 import documentsRouter from './controllers/document';
 import usersRouter from './controllers/user';
 import statsRouter from './controllers/statistic';
-import viewRouter from './controllers/view';
+import metadataRouter from './controllers/metadata';
 import errorHandler from './middlewares/errorHandler';
 import './passport';
 import swaggerDocument from './swagger.json';
@@ -27,7 +27,7 @@ app.use('/auth', loginRouter);
 app.use('/documents', documentsRouter);
 app.use('/users', usersRouter);
 app.use('/stats', statsRouter);
-app.use('/view', viewRouter);
+app.use('/metadata', metadataRouter);
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(errorHandler);
 

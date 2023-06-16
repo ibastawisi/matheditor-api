@@ -158,4 +158,17 @@ const getLatestUsers = async () => {
   });
 }
 
-export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, deleteUser, getUsersCount, getLatestUsers, findPublicUserById };
+const findUserMetadata = async (id: string) => {
+  return prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      picture: true,
+      createdAt: true,
+    }
+  });
+}
+
+export { findAllUsers, findUserById, findUserByGoogleId, createUser, updateUser, deleteUser, getUsersCount, getLatestUsers, findPublicUserById, findUserMetadata };
