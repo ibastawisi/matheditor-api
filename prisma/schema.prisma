@@ -13,9 +13,10 @@ model Document {
   data      Json
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
-  userId    String   @map("user_id") @db.Uuid
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  authorId  String   @map("author_id") @db.Uuid
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   isPublic  Boolean  @default(false) @map("is_public")
+
   @@map("documents")
 }
 

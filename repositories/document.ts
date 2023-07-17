@@ -8,7 +8,7 @@ const findAllDocuments = async () => {
       name: true,
       createdAt: true,
       updatedAt: true,
-      userId: true,
+      authorId: true,
       isPublic: true,
     },
     orderBy: {
@@ -30,14 +30,14 @@ const findDocumentById = async (id: string) => {
   });
 }
 
-const findDocumentUserId = async (id: string) => {
+const findDocumentAuthorId = async (id: string) => {
   const document = await prisma.document.findUnique({
     where: { id },
     select: {
-      userId: true,
+      authorId: true,
     }
   });
-  return document?.userId;
+  return document?.authorId;
 }
 
 const findDocumentMetadata = async (id: string) => {
@@ -48,7 +48,7 @@ const findDocumentMetadata = async (id: string) => {
       name: true,
       createdAt: true,
       updatedAt: true,
-      user: {
+      author: {
         select: {
           name: true,
           picture: true,
@@ -87,7 +87,7 @@ const getLatestDocuments = async () => {
       name: true,
       createdAt: true,
       updatedAt: true,
-      userId: true,
+      authorId: true,
     },
     orderBy: {
       updatedAt: 'desc'
@@ -96,4 +96,4 @@ const getLatestDocuments = async () => {
   });
 }
 
-export { findAllDocuments, findDocumentById, findDocumentUserId, findDocumentMetadata, createDocument, updateDocument, deleteDocument, getDocumentsCount, getLatestDocuments };
+export { findAllDocuments, findDocumentById, findDocumentAuthorId, findDocumentMetadata, createDocument, updateDocument, deleteDocument, getDocumentsCount, getLatestDocuments };

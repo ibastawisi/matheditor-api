@@ -3,7 +3,7 @@ import { User } from "@prisma/client";
 import { validate } from "uuid";
 import isAuthenticated from "../middlewares/isAuthenticated";
 import isAdmin from "../middlewares/isAdmin";
-import { createDocument, deleteDocument, findAllDocuments, findDocumentById, findDocumentUserId, updateDocument } from "../repositories/document";
+import { createDocument, deleteDocument, findAllDocuments, findDocumentById, findDocumentAuthorId, updateDocument } from "../repositories/document";
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.post('/', isAuthenticated, async (req, res, next) => {
   if (user.disabled) {
     return res.status(403).json({ error: 'account disabled, please contact admin' })
   }
-  await createDocument({ ...req.body, userId: user.id });
+  await createDocument({ ...req.body, authorId: user.id });
   return res.status(200).end();
 });
 
@@ -37,11 +37,11 @@ router.put('/:id', isAuthenticated, async (req, res) => {
   if (user.disabled) {
     return res.status(403).json({ error: 'account disabled, please contact admin' })
   }
-  const userId = await findDocumentUserId(req.params.id);
-  if (user.id !== userId) {
+  const authorId = await findDocumentAuthorId(req.params.id);
+  if (user.id !== authorId) {
     return res.status(403).json({ error: 'you are not allowed to edit this document' })
   }
-  if (userId === user.id) {
+  if (authorId === user.id) {
     await updateDocument(req.params.id, req.body);
     return res.status(200).end();
   } else {
@@ -57,11 +57,11 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
   if (user.disabled) {
     return res.status(403).json({ error: 'account disabled, please contact admin' })
   }
-  const userId = await findDocumentUserId(req.params.id);
-  if (user.id !== userId) {
+  const authorId = await findDocumentAuthorId(req.params.id);
+  if (user.id !== authorId) {
     return res.status(403).json({ error: 'you are not allowed to delete this document' })
   }
-  if (user.id === userId) {
+  if (user.id === authorId) {
     await deleteDocument(req.params.id);
   }
   res.status(204).end()

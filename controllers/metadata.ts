@@ -31,7 +31,7 @@ router.get('/document/:id', async (req, res) => {
       metadata.title = document.name;
       metadata.subtitle = new Date(document.createdAt).toDateString()
       metadata.description = `View ${document.name} on Math Editor`;
-      metadata.user = document.user;
+      metadata.user = document.author;
     } else {
       metadata.title = 'Error 404';
       metadata.subtitle = 'Document Not Found';

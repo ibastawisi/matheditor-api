@@ -398,7 +398,7 @@
         "id": {
           "type": "string"
         },
-        "userId": {
+        "authorId": {
           "type": "string"
         },
         "name": {
