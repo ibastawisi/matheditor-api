@@ -8,14 +8,17 @@ datasource db {
 }
 
 model Document {
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String     @id @default(uuid()) @db.Uuid
   name      String
   data      Json
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
-  authorId  String   @map("author_id") @db.Uuid
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  isPublic  Boolean  @default(false) @map("is_public")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @default(now()) @map("updated_at")
+  authorId  String     @map("author_id") @db.Uuid
+  author    User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isPublic  Boolean    @default(false) @map("is_public")
+  baseId    String?    @map("base_id") @db.Uuid
+  base      Document?  @relation("BaseForks", fields: [baseId], references: [id])
+  forks     Document[] @relation("BaseForks")
 
   @@map("documents")
 }
