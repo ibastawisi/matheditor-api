@@ -11,7 +11,7 @@
   "schemes": [
     "https"
   ],
-  "host": "api.matheditor.ml",
+  "host": "api.matheditor.me",
   "paths": {
     "/stats": {
       "get": {
@@ -364,7 +364,7 @@
   "securityDefinitions": {
     "oauth2": {
       "type": "oauth2",
-      "authorizationUrl": "https://api.matheditor.ml/auth/login",
+      "authorizationUrl": "https://api.matheditor.me/auth/login",
       "flow": "authorizationCode"
     }
   },
